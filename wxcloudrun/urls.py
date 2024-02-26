@@ -14,13 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from wxcloudrun import views
-from django.conf.urls import url
+from django.urls import path, include
+from django.contrib import admin
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
-urlpatterns = (
-    # 计数器接口
-    url(r'^^api/count(/)?$', views.counter),
+urlpatterns = [
+    path('admin/', admin.site.urls, name='admin'),
+    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('api/', include('backend.expertdb.urls')),
+]
 
-    # 获取主页
-    url(r'(/)?$', views.index),
-)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
