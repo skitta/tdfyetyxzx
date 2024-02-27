@@ -1,30 +1,45 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import ExpertsListView from '@/views/ExpertsListView.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <n-layout>
+    <n-layout-header bordered>
+      <n-h2>儿童医学中心专家组</n-h2>
+    </n-layout-header>
+
+    <n-layout-content>
+      <ExpertsListView />
+    </n-layout-content>
+
+    <n-layout-footer bordered>wei</n-layout-footer>
+  </n-layout>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.n-layout-header,
+.n-layout-content,
+.n-layout-footer {
+  background: #f1f1f1;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.n-layout-header {
+  height: 64px;
+  padding-top: 20px;
+  text-align: center;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.n-layout-footer {
+  height: 64px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+.n-layout-content {
+  margin-top: 64px;
 }
 </style>
