@@ -5,22 +5,23 @@ import ExpertsListView from '@views/ExpertsListView.vue'
 <template>
   <n-layout>
     <n-layout-header bordered>
-      <n-h4>儿童医学中心专家组</n-h4>
+      <n-h4>儿童医学中心专家列表</n-h4>
     </n-layout-header>
 
     <n-layout-content>
-      <ExpertsListView />
+      <Suspense><ExpertsListView /></Suspense>
     </n-layout-content>
 
-    <n-layout-footer bordered>
+    <n-layout-footer>
       <n-divider>
-        <small>南通大学附属医院</small>
+        <small style="color: #888888;">南通大学附属医院</small>
       </n-divider>
     </n-layout-footer>
   </n-layout>
 </template>
 
 <style scoped>
+.n-layout,
 .n-layout-header,
 .n-layout-content,
 .n-layout-footer {

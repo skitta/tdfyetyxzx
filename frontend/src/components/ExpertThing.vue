@@ -28,3 +28,9 @@ defineProps<{
     {{ expert.info }}
   </n-thing>
 </template>
+
+<style scoped>
+.n-avatar {
+  height: 56px;
+}
+</style>

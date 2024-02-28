@@ -4,6 +4,18 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class Profession(models.Model):
+    id = models.AutoField
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta(object):
+        verbose_name = '专业'
+        verbose_name_plural = verbose_name
+
+
 class OutpatientSchedule(models.Model):
 
     class Category(models.TextChoices):
@@ -106,13 +118,14 @@ class Doctor(models.Model):
         default=Degree.DOCTOR_MEDICINE
     )
     #专业
-    major = models.CharField('专业', max_length=10)
+    major = models.ManyToManyField(verbose_name='专业',to=Profession)
     #擅长
     field = models.TextField('擅长领域')
     #介绍
     info = models.TextField('介绍')
     #门诊排班
     schedule = models.ManyToManyField(verbose_name='门诊排班', to=OutpatientSchedule)
+    link = models.URLField('挂号网址', blank=True)
 
     def __str__(self):
         return self.name

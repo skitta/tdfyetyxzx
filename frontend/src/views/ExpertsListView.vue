@@ -1,65 +1,64 @@
 <script setup lang="ts">
-import ExpertThing, { Expert } from "@components/ExpertThing.vue"
-import imgUrl from "@assets/vue.svg"
+import ExpertThing, { Expert } from "@components/ExpertThing.vue";
+//import imgUrl from "@assets/vue.svg";
+import { getExperts } from "@api/experts";
+import { computed } from "vue";
 
-const experts: Expert[] = [
-    {
-        name: '赵建美',
-        avatarSrc: imgUrl,
-        tags: ['副院长', '主任医师'],
-        info: "川崎病、先天性心脏病",
-        link: 'http://www.baidu.com'
-    },
-    {
-        name: '赵建美',
-        avatarSrc: imgUrl,
-        tags: ['副院长', '主任医师'],
-        info: "川崎病、先天性心脏病",
-        link: 'http://www.baidu.com'
-    }
-];
+interface majorExperts {
+    major: string,
+    experts: Expert[]
+}
 
-const expertGroups = [
-    {
-        groupName: '儿童心血管',
-        experts: experts
-    },
-    {
-        groupName: '儿童神经',
-        experts: experts
-    },
-    {
-        groupName: '儿童神经',
-        experts: experts
-    },
-    {
-        groupName: '儿童神经',
-        experts: experts
-    },
-    {
-        groupName: '儿童神经',
-        experts: experts
-    },
-    {
-        groupName: '儿童神经',
-        experts: experts
-    },
-    {
-        groupName: '儿童神经',
-        experts: experts
-    }
-]
+const expertsdb = await getExperts();
+
+const getMajorExperts = computed<majorExperts[]>(() => {
+    const result: majorExperts[] = [];
+    expertsdb.forEach((item) => {
+        item.major.forEach((majorItem) => {
+            const tempResult: majorExperts = {
+                major: majorItem,
+                experts: [{
+                    name: item.name,
+                    avatarSrc: item.avatar,
+                    tags: [
+                        item.doctor_title,
+                        //item.doctor_office,
+                        item.degree,
+                        item.teacher_title,
+                        //item.teacher_office
+                    ],
+                    info: `擅长诊治儿童${item.field}`,
+                    link: item.link
+                }]
+            }
+            const foundIndex = result.findIndex((resultItem) => resultItem.major === majorItem);
+
+            if (foundIndex === -1) {
+                result.push(tempResult)
+            } else {
+                result[foundIndex].experts.push(tempResult.experts[0])
+            }
+        });
+    });
+    return result;
+});
+
 </script>
 
-<template> 
+<template>
     <n-space vertical size="large">
-        <n-list bordered v-for="eg in expertGroups">
+        <n-list bordered v-for="eg in getMajorExperts">
             <template #header>
-                <n-text strong>{{ eg.groupName }}</n-text>
+                <n-text strong>{{ eg.major }}</n-text>
             </template>
             <n-list-item v-for="e in eg.experts">
                 <template #suffix>
-                    <n-button quaternary type="info">挂号</n-button>
+                    <n-button
+                        quaternary
+                        type="info"
+                        tag="a"
+                        :href="e.link"
+                    >挂号</n-button>
                 </template>
                 <ExpertThing :expert="e" />
             </n-list-item>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Doctor, OutpatientSchedule
+from .models import Doctor, OutpatientSchedule, Profession
 
 
 admin.site.site_title = '微信云服务'
@@ -20,3 +20,8 @@ class DoctorAdmin(admin.ModelAdmin):
 @admin.register(OutpatientSchedule)
 class OutpatientScheduleAdmin(admin.ModelAdmin):
     list_display = ('category', 'week')
+
+
+@admin.register(Profession)
+class ProfessionAdmin(admin.ModelAdmin):
+    list_display = ('name',)

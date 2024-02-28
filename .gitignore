@@ -138,3 +138,4 @@ __pycache__/
 **/package-lock.json
 logs/
 **/node_modules/
+**/migrations/
