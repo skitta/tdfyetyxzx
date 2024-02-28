@@ -7,15 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ExpertsList: typeof import('./src/components/ExpertsList.vue')['default']
     ExpertThing: typeof import('./src/components/ExpertThing.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     NAvatar: typeof import('naive-ui')['NAvatar']
     NButton: typeof import('naive-ui')['NButton']
-    NH1: typeof import('naive-ui')['NH1']
-    NH2: typeof import('naive-ui')['NH2']
-    NH3: typeof import('naive-ui')['NH3']
-    NImage: typeof import('naive-ui')['NImage']
+    NDivider: typeof import('naive-ui')['NDivider']
+    NH4: typeof import('naive-ui')['NH4']
     NLayout: typeof import('naive-ui')['NLayout']
     NLayoutContent: typeof import('naive-ui')['NLayoutContent']
     NLayoutFooter: typeof import('naive-ui')['NLayoutFooter']

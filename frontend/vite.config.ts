@@ -3,11 +3,11 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
-import { resolve } from 'path'
+import { ViteAliases } from 'vite-aliases'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  //base: './',
   
   plugins: [
     vue(),
@@ -26,15 +26,13 @@ export default defineConfig({
     }),
     Components({
       resolvers: [NaiveUiResolver()]
+    }),
+    ViteAliases({
+      prefix: '@',
+      adjustDuplicates: true,
+      dts: true,
     })
   ],
-
-  resolve: {
-    alias: {
-      "@": resolve(__dirname, "src")
-    },
-    extensions: ['.js', '.json', '.ts']
-  },
 
   build: {
     assetsDir: 'static'

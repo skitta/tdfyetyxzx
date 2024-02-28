@@ -20,10 +20,21 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* @ */
+    /* aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@components/*": [
+          "src/components/*"
+      ],
+      "@views/*": [
+          "src/views/*"
+      ],
+      "@/*": [
+          "src/*"
+      ]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],

@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import ExpertsListView from '@/views/ExpertsListView.vue'
+import ExpertsListView from '@views/ExpertsListView.vue'
 </script>
 
 <template>
   <n-layout>
     <n-layout-header bordered>
-      <n-h2>儿童医学中心专家组</n-h2>
+      <n-h4>儿童医学中心专家组</n-h4>
     </n-layout-header>
 
     <n-layout-content>
       <ExpertsListView />
     </n-layout-content>
 
-    <n-layout-footer bordered>wei</n-layout-footer>
+    <n-layout-footer bordered>
+      <n-divider>
+        <small>南通大学附属医院</small>
+      </n-divider>
+    </n-layout-footer>
   </n-layout>
 </template>
 
@@ -24,8 +28,8 @@ import ExpertsListView from '@/views/ExpertsListView.vue'
 }
 
 .n-layout-header {
-  height: 64px;
-  padding-top: 20px;
+  height: 48px;
+  padding-top: 12px;
   text-align: center;
   width: 100vw;
   position: fixed;
@@ -33,13 +37,20 @@ import ExpertsListView from '@/views/ExpertsListView.vue'
   z-index: 10;
 }
 
-.n-layout-footer {
-  height: 64px;
-  padding-top: 12px;
-  text-align: center;
+.n-layout-content {
+  margin-top: 48px;
 }
 
-.n-layout-content {
-  margin-top: 64px;
+.n-layout-footer {
+  height: 46px;
+  padding: 10px;
+}
+
+.n-h4 {
+  margin: 0;
+}
+
+.n-divider {
+  margin: 0;
 }
 </style>

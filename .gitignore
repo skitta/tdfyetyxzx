@@ -133,4 +133,8 @@ dmypy.json
 *.pytest_cache/
 upload/
 __pycache__/
-test.db
+#test.db
+**/docs/
+**/package-lock.json
+logs/
+**/node_modules/

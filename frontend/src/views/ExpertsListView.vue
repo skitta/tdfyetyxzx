@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import ExpertThing, { Expert } from "@/components/ExpertThing.vue"
+import ExpertThing, { Expert } from "@components/ExpertThing.vue"
+import imgUrl from "@assets/vue.svg"
 
 const experts: Expert[] = [
     {
         name: '赵建美',
-        avatarSrc: '@/assets/vue.svg',
+        avatarSrc: imgUrl,
         tags: ['副院长', '主任医师'],
         info: "川崎病、先天性心脏病",
         link: 'http://www.baidu.com'
     },
     {
         name: '赵建美',
-        avatarSrc: '@/assets/vue.svg',
+        avatarSrc: imgUrl,
         tags: ['副院长', '主任医师'],
         info: "川崎病、先天性心脏病",
         link: 'http://www.baidu.com'
@@ -67,13 +68,4 @@ const expertGroups = [
 </template>
 
 <style scoped>
-.header {
-    text-align: center;
-    padding-top: 20px;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-}
 </style>
