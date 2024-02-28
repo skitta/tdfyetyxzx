@@ -131,7 +131,7 @@ dmypy.json
 .idea
 .vscode
 *.pytest_cache/
-upload/
+
 __pycache__/
 #test.db
 **/docs/

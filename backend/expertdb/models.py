@@ -87,7 +87,7 @@ class Doctor(models.Model):
         if self.avatar and hasattr(self.avatar, 'url'):
             return self.avatar.url
         else:
-            return '/media/avatar/default.png'
+            return '/media/avatar/default.svg'
 
     #医务职称，如主任医师
     doctor_title = models.CharField(
