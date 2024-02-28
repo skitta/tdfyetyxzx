@@ -65,6 +65,3 @@ const getMajorExperts = computed<majorExperts[]>(() => {
         </n-list>
     </n-space>
 </template>
-
-<style scoped>
-</style>

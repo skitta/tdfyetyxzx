@@ -5,7 +5,7 @@ import ExpertsListView from '@views/ExpertsListView.vue'
 <template>
   <n-layout>
     <n-layout-header bordered>
-      <n-h4>儿童医学中心专家列表</n-h4>
+      <n-h4>专家列表</n-h4>
     </n-layout-header>
 
     <n-layout-content>
