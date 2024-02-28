@@ -21,6 +21,7 @@ class OutpatientSchedule(models.Model):
     class Category(models.TextChoices):
         GENERAL = 'GP', _('普通专家门诊')
         SENIOR = 'SP', _('高级专家门诊')
+        INTERNET = 'IN', _('互联网门诊')
 
     class Week(models.IntegerChoices):
         MONDAY = 0, _('星期一')
@@ -67,6 +68,7 @@ class Doctor(models.Model):
         BACHELOR_MEDICINE = 'MB', _('医学学士')
         MASTER_MEDICINE = 'MM', _('医学硕士')
         DOCTOR_MEDICINE = 'MD', _('医学博士')
+        POSTDOCTOR_MEDICINE = 'MPD', _('医学博士后')
     
     def user_directory_path(instance, filname:str):
         ext = filname.split('.').pop()
