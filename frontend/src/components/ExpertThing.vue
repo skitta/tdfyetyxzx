@@ -25,7 +25,9 @@ defineProps<{
         </n-tag>
       </n-space>
     </template>
-    {{ expert.info }}
+    <n-ellipsis :line-clamp="2" expand-trigger="click" :tooltip="false">
+      {{ expert.info }}
+    </n-ellipsis>
   </n-thing>
 </template>
 

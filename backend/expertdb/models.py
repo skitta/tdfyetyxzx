@@ -103,7 +103,6 @@ class Doctor(models.Model):
         '教学职称',
         max_length=3,
         choices=TeacherTitle.choices,
-        default=TeacherTitle.PROFESSOR,
         blank=True,
         null=True
     )
@@ -127,7 +126,7 @@ class Doctor(models.Model):
     info = models.TextField('介绍')
     #门诊排班
     schedule = models.ManyToManyField(verbose_name='门诊排班', to=OutpatientSchedule)
-    link = models.URLField('挂号网址', blank=True)
+    link = models.URLField('挂号网址', blank=True, max_length=300)
 
     def __str__(self):
         return self.name

@@ -22,14 +22,14 @@ const getMajorExperts = computed<majorExperts[]>(() => {
                     avatarSrc: item.avatar,
                     tags: [
                         item.doctor_title,
-                        //item.doctor_office,
                         item.degree,
-                        item.teacher_title,
-                        //item.teacher_office
                     ],
-                    info: `擅长诊治儿童${item.field}`,
+                    info: item.field,
                     link: item.link
                 }]
+            }
+            if (item.teacher_title) {
+                tempResult.experts[0].tags.push(item.teacher_title)
             }
             const foundIndex = result.findIndex((resultItem) => resultItem.major === majorItem);
 
