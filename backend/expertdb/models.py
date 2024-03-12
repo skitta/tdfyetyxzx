@@ -4,55 +4,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Profession(models.Model):
-    id = models.AutoField
-    name = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.name
-    
-    class Meta(object):
-        verbose_name = '专业'
-        verbose_name_plural = verbose_name
-
-
-class OutpatientSchedule(models.Model):
-
-    class Category(models.TextChoices):
-        GENERAL = 'GP', _('普通专家门诊')
-        SENIOR = 'SP', _('高级专家门诊')
-        INTERNET = 'IN', _('互联网门诊')
-
-    class Week(models.IntegerChoices):
-        MONDAY = 0, _('星期一')
-        TUESDAY = 1, _('星期二')
-        WEDNESDAY = 2, _('星期三')
-        THURSDAY = 3, _('星期四')
-        FRIDAY = 4, _('星期五')
-        SATURDAY = 5, _('星期六')
-        SUNDAY = 6, _('星期日')
-
-    id = models.AutoField
-    category = models.CharField('门诊类别',
-        max_length=2,
-        choices=Category.choices,
-        default=Category.GENERAL
-    )
-    week = models.IntegerField('班次', choices=Week.choices)
-
-    def display(self):
-        w = self.Week.choices[self.week]
-        c = next((t for t in self.Category.choices if self.category in t), None)
-        return '{}({})'.format(w[1], c[1])
-
-    def __str__(self):
-        return self.display()
-    
-    class Meta(object):
-        verbose_name = '门诊排班'
-        verbose_name_plural = verbose_name
-
-
 class Doctor(models.Model):
 
     class DoctorTitle(models.TextChoices):
@@ -63,6 +14,10 @@ class Doctor(models.Model):
     class TeacherTitle(models.TextChoices):
         PROFESSOR = 'PR', _('教授')
         ASSOCIATE_PROFESSOR = 'APR', _('副教授')
+
+    class TeacherOffice(models.TextChoices):
+        MasterTutor = 'MT', _('硕导')
+        DoctorTutor = 'DT', _('博导')
 
     class Degree(models.TextChoices):
         BACHELOR_MEDICINE = 'MB', _('医学学士')
@@ -110,27 +65,53 @@ class Doctor(models.Model):
     #医务职位, 如副院长
     doctor_office = models.CharField('医务职位', max_length=20, blank=True, null=True)
     #教学职位，如博导
-    teacher_office = models.CharField('教学职位', max_length=20, blank=True, null=True)
+    teacher_office = models.CharField(
+        '教学职位',
+        max_length=20,
+        choices=TeacherOffice.choices,
+        blank=True,
+        null=True)
     #学历
     degree = models.CharField(
         '学历',
         max_length=10,
         choices=Degree.choices,
-        default=Degree.DOCTOR_MEDICINE
+        blank=True,
+        null=True
     )
-    #专业
-    major = models.ManyToManyField(verbose_name='专业',to=Profession)
     #擅长
     field = models.TextField('擅长领域')
     #介绍
-    info = models.TextField('介绍')
-    #门诊排班
-    schedule = models.ManyToManyField(verbose_name='门诊排班', to=OutpatientSchedule)
-    link = models.URLField('挂号网址', blank=True, max_length=300)
+    info = models.TextField('介绍', blank=True, null=True)
+
+    link = models.URLField('挂号网址', blank=True, max_length=300, null=True)
 
     def __str__(self):
         return self.name
     
     class Meta(object):
         verbose_name = '专家库'
+        verbose_name_plural = verbose_name
+
+
+class Section(models.Model):
+    id = models.AutoField
+    name = models.CharField(max_length=20)
+    doctors = models.ManyToManyField(Doctor, blank=True, through='SectionDoctors')
+
+    def __str__(self):
+        return self.name
+    
+    class Meta(object):
+        verbose_name = '专业组'
+        verbose_name_plural = verbose_name
+
+
+class SectionDoctors(models.Model):
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    unique_together = ('section', 'doctor')
+
+    class Meta(object):
+        verbose_name = '专业专家'
         verbose_name_plural = verbose_name
