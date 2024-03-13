@@ -15,7 +15,16 @@ defineProps<{
 <template>
   <n-thing>
     <template #avatar>
-      <n-avatar :src="expert.avatarSrc" size="large" />
+      <n-avatar v-if="expert.avatarSrc !== null"
+        lazy
+        :src="expert.avatarSrc"
+        size="large"
+        fallback-src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+      />
+      <n-avatar v-else
+        lazy
+        size="large"
+      > {{ expert.name.charAt(0) }} </n-avatar>
     </template>
     <template #header>{{ expert.name }}</template>
     <template #description>

@@ -1,17 +1,16 @@
 import logging
 from rest_framework import viewsets
 
-from .serializers import DoctorSerializer
-from .models import Doctor
+from .serializers import SectionDoctorsSerializer
+from .models import SectionDoctors
 
 
 logger = logging.getLogger('log')
 
 
-class DoctorViewSet(viewsets.ReadOnlyModelViewSet):
+class SectionDoctorViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Doctor.objects.all()
-    serializer_class = DoctorSerializer
-
+    queryset = SectionDoctors.objects.all()
+    serializer_class = SectionDoctorsSerializer

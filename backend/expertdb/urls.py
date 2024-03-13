@@ -5,7 +5,7 @@ from . import views
 
 
 routers = routers.DefaultRouter()
-routers.register(r'experts', views.DoctorViewSet)
+routers.register(r'experts', views.SectionDoctorViewSet)
 
 
 urlpatterns = [

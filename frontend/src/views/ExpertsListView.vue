@@ -14,32 +14,34 @@ const expertsdb = await getExperts();
 const getMajorExperts = computed<majorExperts[]>(() => {
     const result: majorExperts[] = [];
     expertsdb.forEach((item) => {
-        item.major.forEach((majorItem) => {
-            const tempResult: majorExperts = {
-                major: majorItem,
-                experts: [{
-                    name: item.name,
-                    avatarSrc: item.avatar,
-                    tags: [
-                        item.doctor_title,
-                        item.degree,
-                    ],
-                    info: item.field,
-                    link: item.link
-                }]
+        const tempResult: majorExperts = {
+            major: item.section,
+            experts: [{
+                name: item.doctor.name,
+                avatarSrc: item.doctor.avatar,
+                tags: [
+                    item.doctor.doctor_title,
+                ],
+                info: item.info,
+                link: item.doctor.link,
+            }]
+        }
+        if (item.doctor.teacher_title) {
+                tempResult.experts[0].tags.push(item.doctor.teacher_title)
             }
-            if (item.teacher_title) {
-                tempResult.experts[0].tags.push(item.teacher_title)
-            }
-            const foundIndex = result.findIndex((resultItem) => resultItem.major === majorItem);
+        if (item.doctor.teacher_office) {
+            tempResult.experts[0].tags.push(item.doctor.teacher_office)
+        }
 
-            if (foundIndex === -1) {
-                result.push(tempResult)
-            } else {
-                result[foundIndex].experts.push(tempResult.experts[0])
-            }
-        });
+        const foundIndex = result.findIndex((resultItem) => resultItem.major === item.section);
+
+        if (foundIndex === -1) {
+            result.push(tempResult);
+        } else {
+            result[foundIndex].experts.push(tempResult.experts[0]);
+        }
     });
+    console.log(result);
     return result;
 });
 

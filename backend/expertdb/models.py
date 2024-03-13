@@ -40,12 +40,6 @@ class Doctor(models.Model):
         upload_to=user_directory_path
     )
 
-    def get_avatar_url(self):
-        if self.avatar and hasattr(self.avatar, 'url'):
-            return self.avatar.url
-        else:
-            return '/media/avatar/default.svg'
-
     #医务职称，如主任医师
     doctor_title = models.CharField(
         '医务职称',
@@ -79,12 +73,8 @@ class Doctor(models.Model):
         blank=True,
         null=True
     )
-    #擅长
-    field = models.TextField('擅长领域')
-    #介绍
-    info = models.TextField('介绍', blank=True, null=True)
 
-    link = models.URLField('挂号网址', blank=True, max_length=300, null=True)
+    link = models.URLField('挂号网址', blank=True, max_length=300, null=True)      
 
     def __str__(self):
         return self.name
@@ -96,8 +86,8 @@ class Doctor(models.Model):
 
 class Section(models.Model):
     id = models.AutoField
-    name = models.CharField(max_length=20)
-    doctors = models.ManyToManyField(Doctor, blank=True, through='SectionDoctors')
+    name = models.CharField(max_length=20, verbose_name='专业组名称')
+    doctors = models.ManyToManyField(Doctor, blank=True, through='SectionDoctors', verbose_name='专家')
 
     def __str__(self):
         return self.name
@@ -108,10 +98,15 @@ class Section(models.Model):
 
 
 class SectionDoctors(models.Model):
-    section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name='专业组')
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, verbose_name='专家')
+    info = models.TextField('介绍')
+
     unique_together = ('section', 'doctor')
 
     class Meta(object):
         verbose_name = '专业专家'
         verbose_name_plural = verbose_name
+    
+    def __str__(self):
+        return "{} - {}".format(self.section.name, self.doctor.name)

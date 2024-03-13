@@ -5,19 +5,18 @@ axios.defaults.baseURL = `${window.location.protocol}//${window.location.host}/a
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 export interface Doctor {
-    id: number,
-    name: string,
-    avatar: string,
-    doctor_title: string,
-    teacher_title?: string,
-    doctor_office?: string,
-    teacher_office?: string,
-    degree: string,
-    field: string,
+    section: string,
+    doctor: {
+        name: string,
+        avatar: string,
+        doctor_title: string,
+        teacher_title?: string,
+        doctor_office?: string,
+        teacher_office?: string,
+        degree?: string,
+        link?: string
+    },
     info: string,
-    link: string,
-    major: string[],
-    schedule: string[]
 }
 
 function getExperts(): Promise<Doctor[]> {
@@ -30,17 +29,6 @@ function getExperts(): Promise<Doctor[]> {
     })
 }
 
-function getExpertById(id: number): Promise<Doctor> {
-    return new Promise((resolve, reject) => {
-        axios.get(`/experts/${id}`).then(response => {
-            resolve(response.data);
-        }).catch(error => {
-            reject(error);
-        })
-    })
-}
-
 export {
-    getExperts,
-    getExpertById
+    getExperts
 }
