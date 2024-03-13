@@ -41,7 +41,7 @@ const getMajorExperts = computed<majorExperts[]>(() => {
             result[foundIndex].experts.push(tempResult.experts[0]);
         }
     });
-    console.log(result);
+
     return result;
 });
 

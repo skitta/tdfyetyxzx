@@ -15,7 +15,7 @@ defineProps<{
 <template>
   <n-thing>
     <template #avatar>
-      <n-avatar v-if="expert.avatarSrc !== null"
+      <n-avatar v-if="expert.avatarSrc !== null && expert.avatarSrc !== ''"
         :src="expert.avatarSrc"
         size="large"
       />

@@ -24,20 +24,15 @@ class Doctor(models.Model):
         MASTER_MEDICINE = 'MM', _('医学硕士')
         DOCTOR_MEDICINE = 'MD', _('医学博士')
         POSTDOCTOR_MEDICINE = 'MPD', _('医学博士后')
-    
-    def user_directory_path(instance, filname:str):
-        ext = filname.split('.').pop()
-        filename = '{0}.{1}'.format(instance.id, ext)
-        return os.path.join('avatar', filename)
 
     id = models.AutoField
     name = models.CharField('姓名', max_length=8)
 
-    avatar = models.ImageField(
+    avatar = models.CharField(
         '头像',
+        max_length=25,
         blank=True,
         null=True,
-        upload_to=user_directory_path
     )
 
     #医务职称，如主任医师
