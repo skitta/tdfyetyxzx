@@ -5,18 +5,33 @@ from .choices import DoctorTitle, TeacherTitle, TeacherOffice, Degree
 
 
 class DoctorSerializer(serializers.ModelSerializer):
+    doctor_title = serializers.SerializerMethodField()
+    teacher_title = serializers.SerializerMethodField()
+    teacher_office = serializers.SerializerMethodField()
+    degree = serializers.SerializerMethodField()
     
     class Meta:
         model = Doctor
-        fields = '__all__'
-    
-    def to_representation(self, instance: Doctor):
-        ret = super().to_representation(instance)
-        ret['doctor_title'] = DoctorTitle(instance.doctor_title).label
-        ret['teacher_title'] = TeacherTitle(instance.teacher_title).label if instance.teacher_title else None
-        ret['teacher_office'] = TeacherOffice(instance.teacher_office).label if instance.teacher_office else None
-        ret['degree'] = Degree(instance.degree).label if instance.degree else None
-        return ret
+        fields = [
+            'name',
+            'avatar',
+            'doctor_title',
+            'teacher_title',
+            'teacher_office',
+            'degree',
+            'link',]
+
+    def get_doctor_title(self, obj):
+        return DoctorTitle(obj.doctor_title).label
+
+    def get_teacher_title(self, obj):
+        return TeacherTitle(obj.teacher_title).label if obj.teacher_title else None
+
+    def get_teacher_office(self, obj):
+        return TeacherOffice(obj.teacher_office).label if obj.teacher_office else None
+
+    def get_degree(self, obj):
+        return Degree(obj.degree).label if obj.degree else None
 
 
 class SectionDoctorsSerializer(serializers.ModelSerializer):
@@ -26,4 +41,4 @@ class SectionDoctorsSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = SectionDoctors
-        fields = '__all__'
+        fields = ['section', 'doctor', 'info']
