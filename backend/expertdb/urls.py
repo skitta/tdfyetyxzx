@@ -7,7 +7,6 @@ from . import views
 routers = routers.DefaultRouter()
 routers.register(r'experts', views.SectionDoctorViewSet)
 
-
 urlpatterns = [
     path('', include(routers.urls)),
 ]
